@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Crown & Coils</title>
+  <script  src="https://assets.adobedtm.com/43e08a8c9425/001e5275eba1/launch-5c5def145b42-development.min.js" async></script>
+  <style>
+    :root {
+      --primary: #ff6b6b;
+      --white: #ffffff;
+      --title: #000000;
+      --text: #666666;
+      --border: #e5e5e5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Urbanist", sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .header {
+      background: var(--white);
+      padding: 25px 0;
+      position: sticky;
+      top: 0;
+      z-index: 4;
+      box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.1);
+    }
+
+    .logo {
+      color: var(--title);
+      font-size: 24px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-left: 25px;
+    }
+
+    .checkout-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .checkout-title {
+      color: var(--title);
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .checkout-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .checkout-summary {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.1);
+    }
+
+    .checkout-summary h2 {
+      color: var(--title);
+      font-size: 24px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .order-items {
+      margin-bottom: 20px;
+    }
+
+    .order-item {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .order-item p {
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .checkout-total {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--title);
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 2px solid var(--border);
+    }
+
+    .checkout-form {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      color: var(--title);
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 4px;
+      width: 100%;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .checkout-content {
+        grid-template-columns: 1fr;
+      }
+
+      .checkout-title {
+        font-size: 28px;
+      }
+
+      .checkout-summary,
+      .checkout-form {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">Crown & Coils</a>
+  </header>
+
+  <main class="checkout-container">
+    <h1 class="checkout-title">Secure Checkout</h1>
+    <div class="checkout-content">
+      <div class="checkout-summary">
+        <h2>Order Summary</h2>
+        <div id="order-items" class="order-items"></div>
+        <p class="checkout-total">Total: $<span id="checkout-total">0.00</span></p>
+      </div>
+      <form id="checkout-form" class="checkout-form">
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" required>
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" required>
+        </div>
+        <button type="submit" class="btn-primary">Place Order</button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    function loadCheckoutItems() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const orderItems = document.getElementById('order-items');
+      const checkoutTotal = document.getElementById('checkout-total');
+      orderItems.innerHTML = '';
+      let total = 0;
+
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+        const orderItem = document.createElement("div");
+        orderItem.classList.add("order-item");
+        orderItem.innerHTML = `
+          <p>${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}</p>
+        `;
+        orderItems.appendChild(orderItem);
+      });
+      checkoutTotal.innerText = total.toFixed(2);
+    }
+
+    document.getElementById("checkout-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      localStorage.removeItem('cart');
+      window.location.href = "success.html";
+    });
+
+    loadCheckoutItems();
+  </script>
+</body>
+</html>

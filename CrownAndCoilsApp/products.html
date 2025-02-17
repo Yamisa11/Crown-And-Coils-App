@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Products</title>
+
+    <script>
+      let productList = JSON.parse(localStorage.getItem('cart')) || [];
+    	dataLayer = {									
+	           page: {									
+	                           pageName: "Products",									
+	                   									
+	                           pageTitle: "Beauty Products",									
+	                        },									
+	         									
+	        									
+	          ecommerce: {									
+	                									
+	                 									
+	                									
+	                									
+	                 items: [									
+	                        productList								
+	                     ]		,							
+	                  events: {									
+	                            eventType: "",									
+	                           									
+	                   }									
+	         }									
+	}
+  </script>
+    <script  src="https://assets.adobedtm.com/43e08a8c9425/001e5275eba1/launch-5c5def145b42-development.min.js" async></script>
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding: 2rem;
+        }
+
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            aspect-ratio: 1;
+            background: #f8f8f8;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .product-actions {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: #ff6b6b;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-info {
+            padding: 1rem 0;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .products-container {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+      
+        
+   
+
+        <div class="header-top" data-header>
+          <div class="container">
+    
+            <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+              <span class="line line-1"></span>
+              <span class="line line-2"></span>
+              <span class="line line-3"></span>
+            </button>
+    
+            <a href="#" class="logo">
+              <img src="./assets/images/logoC.png" width="179" height="26" alt="Crown&Coils">
+            </a>
+    
+            <div class="header-actions">
+                <button class="header-action-btn" aria-label="cart item">
+        
+
+                    <ion-icon name="bag-handle-outline" aria-hidden="true" aria-hidden="true"></ion-icon>
+        
+                    <span class="btn-badge" id="cart-count">0</span>
+                  </button>
+    
+              <!-- <button class="header-action-btn" aria-label="cart item">
+            
+    
+                <ion-icon name="bag-handle-outline" aria-hidden="true" aria-hidden="true"></ion-icon>
+    
+                <span class="btn-badge"><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></span>
+              </button> -->
+    
+            </div>
+    
+            <nav class="navbar">
+              <ul class="navbar-list">
+    
+                <li>
+                  <a href="./index.html" class="navbar-link has-after">Home</a>
+                </li>
+    
+                <li>
+                  <a href="./booking.html" class="navbar-link has-after">Book</a>
+                </li>
+    
+                <li>
+                  <a href="./cart.html" class="navbar-link has-after">Cart</a>
+                </li>
+    
+    
+              </ul>
+            </nav>
+    
+          </div>
+        </div>
+    
+      </header>
+    <div class="products-container" id="products-grid"></div>
+
+    <script>
+        const products = [
+            { id: 1, name: "Hair Moisturizer", price: 59.99, image: "./assets/images/product-01.jpg"},
+            { id: 10, name: "Argan Hair Oil", price: 69.99, image: "./assets/images/product-10.jpg" },
+            { id: 3, name: "Coffee Bean hair Cream", price: 59.99, image: "./assets/images/product-03.jpg" },
+            { id: 4, name: "Citrus cleanser", price: 69.99, image: "./assets/images/product-15.jpg" },
+            { id: 5, name: "Olive Hair Mask", price: 89.99, image: "./assets/images/product-05.jpg" },
+            { id: 6, name: "Cocoa Butter Deep Contitioner", price: 79.99, image: "./assets/images/product-06.jpg", discount:20 },
+            { id: 7, name: "Orange and Avo Hair Oil", price: 79.99, image: "./assets/images/product-07.jpg", discount: 20 },
+            { id: 8, name: "Matcha Hair Mask", price: 99.99, image: "./assets/images/product-08.jpg" },
+            { id: 9, name: "Oil Cleanser", price: 59.99, image: "./assets/images/product-09.jpg" },
+            { id: 10, name: "Argan Hair Oil", price: 69.99, image: "./assets/images/product-10.jpg" },
+            { id: 11, name: "Coffee Bean Caffeine Eye Cream", price: 69.99, image: "./assets/images/product-05.jpg", discount: 20 },
+            { id: 12, name: "Heat Protector", price: 29.00, image: "./assets/images/product-11.jpg" }
+        ];
+
+        const productsGrid = document.getElementById('products-grid');
+
+        function addToCart(id) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let product = products.find(p => p.id === id);
+      let existingItem = cart.find(item => item.id === id);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      document.getElementById("cart-count").innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
+    }
+
+    function viewProduct(id) {
+    window.location.href = `product-view.html?id=${id}`;
+}
+
+    // Modify the products.forEach loop to include the view button
+products.forEach(product => {
+  const productCard = document.createElement("div");
+  productCard.classList.add("product-card");
+  productCard.innerHTML = `
+    <div class="product-image">
+      <img src="${product.image}" alt="${product.name}">
+      ${product.discount ? `<span class="discount-badge">-${product.discount}%</span>` : ''}
+      <div class="product-actions">
+        <button class="action-btn" onclick="addToCart(${product.id})">
+          <i class="fas fa-shopping-cart"></i>
+        </button>
+        <button class="action-btn" onclick="viewProduct(${product.id})">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+    </div>
+    <div class="product-info">
+      <h3 class="product-name">${product.name}</h3>
+      <div class="product-price">R${product.price.toFixed(2)}</div>
+    </div>
+  `;
+  productsGrid.appendChild(productCard);
+});
+
+    updateCartCount()
+    </script>
+
+<footer class="footer" data-section>
+    <div class="container">
+
+      <div class="footer-top">
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Company</p>
+          </li>
+
+          <li>
+            <p class="footer-list-text">
+              Find a location nearest you. See <a href="#" class="link">Our Stores</a>
+            </p>
+          </li>
+
+          <li>
+            <p class="footer-list-text bold">+27 72 113 7689</p>
+          </li>
+
+          <li>
+            <p class="footer-list-text">info@crowncoils.com</p>
+          </li>
+
+        </ul>
+
+       
+
+        
+
+      </div>
+
+      <div class="footer-bottom">
+
+        <div class="wrapper">
+          <p class="copyright">
+            &copy; 2025 crown&coils
+          </p>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-youtube"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+
+        <a href="#" class="logo">
+          <img src="./assets/images/logoC.png" width="179" height="26" loading="lazy" alt="Glowing">
+        </a>
+
+        <img src="./assets/images/pay.png" width="313" height="28" alt="available all payment method" class="w-100">
+
+      </div>
+
+    </div>
+  </footer>
+  
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js" defer></script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
