@@ -8,6 +8,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script  src="https://assets.adobedtm.com/43e08a8c9425/001e5275eba1/launch-5c5def145b42-development.min.js" async></script>
+    <script>
+        let productView = JSON.parse(localStorage.getItem('productView')) || {};
+dataLayer = {
+    page: {
+        pageName: "Product View",
+        pageTitle: productView.name || "Product"
+    },
+    ecommerce: {
+        productView: {
+            id: productView.id,
+            name: productView.name,
+            price: productView.price
+        },
+        events: {
+            eventType: "productView"
+        }
+    }
+};
+
+
+    </script>
     <style>
         * {
             margin: 0;
@@ -146,7 +168,7 @@
                     is designed to nourish and revitalize your skin, leaving it feeling refreshed and radiant. 
                     Perfect for daily use as part of your skincare routine.
                 </p>
-                <button class="add-to-cart-btn" id="add-to-cart-btn">
+                <button class="add-to-cart-btn" id="add-to-cart-btn" data-id="link_" data-text="add-to-cart">
                     <i class="fas fa-shopping-cart"></i>
                     Add to Cart
                 </button>
@@ -160,17 +182,25 @@
 
         // Get product data from localStorage or define it here
         const products = [
-            { id: 1, name: "Facial cleanser", price: 29.00, image: "./assets/images/product-01.jpg", discount: 20 },
-            { id: 2, name: "Bio-shroom Rejuvenating Serum", price: 29.00, image: "./assets/images/product-10.jpg" },
-            // ... rest of your products array
+            { id: 1, name: "Hair Moisturizer", price: 59.99, image: "./assets/images/product-01.jpg"},
+            { id: 10, name: "Argan Hair Oil", price: 69.99, image: "./assets/images/product-10.jpg" },
+            { id: 3, name: "Coffee Bean hair Cream", price: 59.99, image: "./assets/images/product-03.jpg" },
+            { id: 4, name: "Citrus cleanser", price: 69.99, image: "./assets/images/product-15.jpg" },
+            { id: 5, name: "Olive Hair Mask", price: 89.99, image: "./assets/images/product-05.jpg" },
+            { id: 6, name: "Cocoa Butter Deep Contitioner", price: 79.99, image: "./assets/images/product-06.jpg", discount:20 },
+            { id: 7, name: "Orange and Avo Hair Oil", price: 79.99, image: "./assets/images/product-07.jpg", discount: 20 },
+            { id: 8, name: "Matcha Hair Mask", price: 99.99, image: "./assets/images/product-08.jpg" },
+            { id: 9, name: "Oil Cleanser", price: 59.99, image: "./assets/images/product-09.jpg" },
+            { id: 10, name: "Argan Hair Oil", price: 69.99, image: "./assets/images/product-10.jpg" },
+            { id: 11, name: "Coffee Bean Caffeine Eye Cream", price: 69.99, image: "./assets/images/product-05.jpg", discount: 20 },
+            { id: 12, name: "Heat Protector", price: 29.00, image: "./assets/images/product-11.jpg" }
         ];
-
         const product = products.find(p => p.id === productId);
 
         if (product) {
             document.getElementById('product-image').src = product.image;
             document.getElementById('product-name').textContent = product.name;
-            document.getElementById('product-price').textContent = `$${product.price.toFixed(2)}`;
+            document.getElementById('product-price').textContent = `R${product.price.toFixed(2)}`;
             
             if (product.discount) {
                 document.getElementById('discount-badge').innerHTML = 
@@ -192,5 +222,6 @@
             };
         }
     </script>
+   
 </body>
 </html>

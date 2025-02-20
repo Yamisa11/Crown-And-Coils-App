@@ -7,6 +7,8 @@
 
     <script>
       let productList = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      let theProduct
     	dataLayer = {									
 	           page: {									
 	                           pageName: "Products",									
@@ -20,9 +22,10 @@
 	                 									
 	                									
 	                									
-	                 items: [									
+	                 Cart: [									
 	                        productList								
-	                     ]		,							
+	                     ]		,		
+                       productView: theProduct,					
 	                  events: {									
 	                            eventType: "",									
 	                           									
@@ -245,6 +248,7 @@
       }
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
+      _satellite.track('Add To Cart')
     }
 
     function updateCartCount() {
@@ -253,7 +257,11 @@
     }
 
     function viewProduct(id) {
+      theProduct = products.find(product => product.id === id);
+      localStorage.setItem('productView', JSON.stringify(theProduct));
     window.location.href = `product-view.html?id=${id}`;
+    _satellite.track('Product View')
+    
 }
 
     // Modify the products.forEach loop to include the view button
@@ -265,10 +273,10 @@ products.forEach(product => {
       <img src="${product.image}" alt="${product.name}">
       ${product.discount ? `<span class="discount-badge">-${product.discount}%</span>` : ''}
       <div class="product-actions">
-        <button class="action-btn" onclick="addToCart(${product.id})">
+        <button class="action-btn" data-id="link_" data-text="add-to-cart" onclick="addToCart(${product.id})">
           <i class="fas fa-shopping-cart"></i>
         </button>
-        <button class="action-btn" onclick="viewProduct(${product.id})">
+        <button class="action-btn" data-id="link_" data-text="view" onclick="viewProduct(${product.id})">
           <i class="fas fa-eye"></i>
         </button>
       </div>
