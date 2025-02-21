@@ -4,7 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - Crown & Coils</title>
-  <script  src="https://assets.adobedtm.com/43e08a8c9425/001e5275eba1/launch-5c5def145b42-development.min.js" async></script>
+  
+ <script>
+   dataLayer ={
+    pageName: "Checkout"
+   }
+   
+ </script>
+ <script> 
+  _satellite.track("globalVirtualPageView");  
+ </script>
+<script  src="https://assets.adobedtm.com/43e08a8c9425/001e5275eba1/launch-5c5def145b42-development.min.js" async></script>
+
   <style>
     :root {
       --primary: #ff6b6b;
@@ -172,7 +183,7 @@
 </head>
 <body>
   <header class="header">
-    <a href="index.html" class="logo">Crown & Coils</a>
+    <a href="./index.html" class="logo">Crown & Coils</a>
   </header>
 
   <main class="checkout-container" >
@@ -183,7 +194,7 @@
         <div id="order-items" class="order-items"></div>
         <p class="checkout-total">Total: $<span id="checkout-total">0.00</span></p>
       </div>
-      <form id="checkout-form" class="checkout-form" data-frmcontainer="">
+      <form id="checkout-form" class="checkout-form" data-frmcontainer="checkout-form" name="checkout-form">
         <div class="form-group">
           <label for="first-name">First Name</label>
           <input type="text" id="first-name" required>
@@ -224,7 +235,7 @@
     document.getElementById("checkout-form").addEventListener("submit", function(event) {
       event.preventDefault();
       localStorage.removeItem('cart');
-      window.location.href = "success.html";
+      window.location.href = "./success.html";
     });
 
     loadCheckoutItems();
