@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book an Appointment - Crown & Coils</title>
   <link rel="stylesheet" href="style.css">
-  <script  src="https://assets.adobedtm.com/43e08a8c9425/001e5275eba1/launch-5c5def145b42-development.min.js" async></script>
+  <script src="https://assets.adobedtm.com/43e08a8c9425/001e5275eba1/launch-5c5def145b42-development.min.js" async></script>
 <script>
     dataLayer = {
     page: {
@@ -15,28 +15,40 @@
             eventType: "booking"
         }
     }
-  
-;
 </script>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      min-height: 100vh;
+      margin: 0;
+      padding-top: 80px;
+    }
     .booking-container {
       max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      margin: 20px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .booking-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 40px rgba(0, 0, 0, 0.15);
     }
     .booking-title {
       text-align: center;
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: bold;
       margin-bottom: 20px;
+      color: #ff6f61;
     }
     .booking-form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 20px;
     }
     .form-group {
       display: flex;
@@ -44,21 +56,70 @@
     }
     .form-group label {
       font-weight: bold;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+      color: #555;
     }
     .form-group input, .form-group select {
-      padding: 10px;
+      padding: 12px;
       border: 1px solid #ddd;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .form-group input:focus, .form-group select:focus {
+      border-color: #ff6f61;
+      box-shadow: 0 0 8px rgba(255, 111, 97, 0.3);
+      outline: none;
+    }
+    .btn-primary {
+      padding: 15px;
+      background: #ff6f61;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background: #e65c50;
+    }
+    header {
+      background: var(--white);
+      padding: 20px;
+      box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.1);
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 4;
+    }
+    header a {
+      color: var(--title);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    header a:hover {
+      color: var(--primary);
     }
   </style>
 </head>
 <body>
- 
-  
-  <main class="booking-container">
+  <header>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+  </header>
+  <main class="booking-container" >
     <h1 class="booking-title">Book an Appointment</h1>
-    <form id="booking-form" class="booking-form">
+    <form id="booking-form" class="booking-form" data-frmcontainer="booking-form" name="booking-form">
       <div class="form-group">
         <label for="first-name">First Name</label>
         <input type="text" id="first-name" class="book-input" required>
@@ -69,16 +130,27 @@
       </div>
       <div class="form-group">
         <label for="date">Date</label>
-        <input type="date" id="date"class="book-input"  required>
+        <input type="date" id="date" class="book-input" required>
       </div>
       <div class="form-group">
         <label for="time">Time</label>
         <input type="time" id="time" class="book-input" required>
       </div>
+      <div class="form-group">
+        <label for="service-type">Service Type</label>
+        <select id="service-type" class="book-input" required>
+          <option value="">Select a service</option>
+          <option value="Haircut">Haircut</option>
+          <option value="Blowout">Blowout</option>
+          <option value="Deep Condition">Deep Condition</option>
+          <option value="Protein Treatment">Protein Treatment</option>
+          <option value="Sew-in Weaves">Sew-in Weaves</option>
+          <option value="Clip in Extensions">Clip in Extensions</option>
+        </select>
+      </div>
       <button onclick="window.location.href='booking-success.html'" class="btn-primary" data-id="link_" data-text="booking">Book Now</button>
     </form>
   </main>
-
   <script>
     document.querySelectorAll(".book-input").forEach(input => {
         input.addEventListener("input", function() {

@@ -31,18 +31,52 @@
       display: inline-block;
       margin-top: 20px;
       padding: 10px 20px;
-      background: black;
-      color: white;
+      
       text-decoration: none;
-      border-radius: 5px;
+      
+     
+      background: #ff6f61;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
     .btn-home:hover {
-      background: gray;
+        background: #e65c50;
+    }
+    header {
+      background: var(--white);
+      padding: 20px;
+      box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.1);
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 4;
+    }
+    header a {
+      color: var(--title);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    header a:hover {
+      color: var(--primary);
     }
   </style>
 </head>
 <body>
-   
+    <header>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+      </header>
   <main class="success-container">
     <h1 class="success-title">Appointment Reserved Successfully!</h1>
     <p class="success-message">Thank you for trusting us with your hair.</p>
