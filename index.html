@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thee Beauty Stop!</title>
   <script  src="https://assets.adobedtm.com/43e08a8c9425/001e5275eba1/launch-5c5def145b42-development.min.js" async></script>
-  <script type="text/javascript" async src="//cdn.evgnet.com/beacon/partneracceleration/ymajija/scripts/evergage.min.js"></script>
+  <!-- <script type="text/javascript" async src="//cdn.evgnet.com/beacon/partneracceleration/ymajija/scripts/evergage.min.js"></script> -->
   
  
   <!-- 
@@ -650,7 +650,39 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
+  <script>
+    (function checkEvergage() {
+      if (window.Evergage && window.Evergage.init) {
+        console.log("Evergage object found, initializing...");
+        
+        window.Evergage.init({
+          cookieDomain: document.location.hostname
+        }).then(() => {
+          console.log("Evergage initialized successfully");
+          
+          // Check if your selector actually finds elements
+          const heroElement = document.querySelector(".section.hero");
+          console.log("Hero element found:", heroElement);
+          
+          window.Evergage.cashDom.define("home", {
+            isMatch: function() {
+              console.log("Running isMatch function, returning true");
+              return true;
+            },
+            contentZones: [
+              { name: "bannerZone", selector: ".section.hero" }
+            ],
+            listeners: []
+          });
+          
+          console.log("Sitemap configuration applied");
+        });
+      } else {
+        console.log("Waiting for Evergage to load...");
+        setTimeout(checkEvergage, 100);
+      }
+    })();
+  </script>
 </body>
 
 </html>
