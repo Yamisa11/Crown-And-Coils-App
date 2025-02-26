@@ -110,6 +110,11 @@
     header a:hover {
       color: var(--primary);
     }
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -117,28 +122,33 @@
     <a href="./index.html">Home</a>
     <a href="./products.html">Products</a>
   </header>
-  <main class="booking-container" >
+  <main class="booking-container">
     <h1 class="booking-title">Book an Appointment</h1>
-    <form id="booking-form" class="booking-form" data-frmcontainer="booking-form" name="booking-form">
+    <!-- Replace YOUR_CLOUDPAGE_URL with the actual published URL of your CloudPage -->
+    <form id="booking-form" class="booking-form" action="YOUR_CLOUDPAGE_URL" method="post">
       <div class="form-group">
         <label for="first-name">First Name</label>
-        <input type="text" id="first-name" class="book-input" required>
+        <input type="text" id="first-name" name="First_Name" class="book-input" required>
       </div>
       <div class="form-group">
         <label for="last-name">Last Name</label>
-        <input type="text" id="last-name" class="book-input" required>
+        <input type="text" id="last-name" name="Last_Name" class="book-input" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="Email_Address" class="book-input" required>
       </div>
       <div class="form-group">
         <label for="date">Date</label>
-        <input type="date" id="date" class="book-input" required>
+        <input type="date" id="date" name="Appointment_Date" class="book-input" required>
       </div>
       <div class="form-group">
         <label for="time">Time</label>
-        <input type="time" id="time" class="book-input" required>
+        <input type="time" id="time" name="Appointment_Time" class="book-input" required>
       </div>
       <div class="form-group">
         <label for="service-type">Service Type</label>
-        <select id="service-type" class="book-input" required>
+        <select id="service-type" name="Service_Type" class="book-input" required>
           <option value="">Select a service</option>
           <option value="Haircut">Haircut</option>
           <option value="Blowout">Blowout</option>
@@ -148,14 +158,25 @@
           <option value="Clip in Extensions">Clip in Extensions</option>
         </select>
       </div>
-      <button onclick="window.location.href='booking-success.html'" class="btn-primary" data-id="link_" data-text="booking">Book Now</button>
+      <button type="submit" class="btn-primary" data-id="link_" data-text="booking">Book Now</button>
     </form>
+    <div id="loading" class="loading">
+      <p>Processing your booking...</p>
+    </div>
   </main>
   <script>
+    // Track form interaction with Adobe Analytics
     document.querySelectorAll(".book-input").forEach(input => {
         input.addEventListener("input", function() {
-            _satellite.track('Form Start')
+            _satellite.track('Form Start');
         });
+    });
+
+    // Show loading message on form submission
+    document.getElementById("booking-form").addEventListener("submit", function() {
+        _satellite.track('Form Submit');
+        document.getElementById("booking-form").style.display = "none";
+        document.getElementById("loading").style.display = "block";
     });
   </script>
 </body>
