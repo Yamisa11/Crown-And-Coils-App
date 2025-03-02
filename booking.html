@@ -124,7 +124,7 @@
   </header>
   <main class="booking-container">
     <h1 class="booking-title">Book an Appointment</h1>
-    <!-- Replace YOUR_CLOUDPAGE_URL with the actual published URL of your CloudPage -->
+    
     <form id="booking-form" class="booking-form" action="https://mc953zsyjzkqnx9q59-z6dk4tfn4.pub.sfmc-content.com/hwalhqrwt11/" method="post">
       <div class="form-group">                           
         <label for="first-name">First Name</label>
@@ -166,11 +166,11 @@
   </main>
   <script>
     // Track form interaction with Adobe Analytics
-    document.querySelectorAll(".book-input").forEach(input => {
-        input.addEventListener("input", function() {
-            _satellite.track('Form Start');
-        });
-    });
+    // document.querySelectorAll(".book-input").forEach(input => {
+    //     input.addEventListener("input", function() {
+    //         _satellite.track('Form Start');
+    //     });
+    // });
 
     // Show loading message on form submission
     document.getElementById("booking-form").addEventListener("submit", function() {
