@@ -12,7 +12,8 @@
       },
           events: {
               eventType: "checkout"
-          }
+          },
+        formname: "checkout form"
       }
   </script>
   <style>
@@ -90,4 +91,7 @@
     <a href="index.html" class="btn-home">Return Home</a>
   </main>
 </body>
+<script>
+  setTimeout(() => _satellite.track('Form Complete'), 1000);
+</script>
 </html>

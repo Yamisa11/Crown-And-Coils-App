@@ -204,7 +204,7 @@
   <main>
     <h1>Your Cart</h1>
     <div id="cart-items" class="cart-container"></div>
-    <p class="cart-total">Total: $<span id="cart-total">0.00</span></p>
+    <p class="cart-total">Total: R<span id="cart-total">0.00</span></p>
     <div class="cart-buttons">
       <button onclick="window.location.href='./checkout.html'" class="btn-primary" data-id="link_" data-text="checkout">Checkout</button>
       <button onclick="window.location.href='./products.html'" class="btn-secondary" data-id="link_" data-text="continue-shopping">Continue Shopping</button>
@@ -228,7 +228,7 @@
           <div class="cart-item-details">
             <h3>${item.name}</h3>
             <p>Quantity: ${item.quantity}</p>
-            <p>Price: $${(item.price * item.quantity).toFixed(2)}</p>
+            <p>Price: R${(item.price * item.quantity).toFixed(2)}</p>
           </div>
           <div class="cart-item-actions">
             <button data-id="link_" data-text="remove-item" onclick="removeFromCart(${item.id})">Remove</button>

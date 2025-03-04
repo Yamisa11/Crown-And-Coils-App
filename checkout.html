@@ -192,7 +192,7 @@
       <div class="checkout-summary">
         <h2>Order Summary</h2>
         <div id="order-items" class="order-items"></div>
-        <p class="checkout-total">Total: $<span id="checkout-total">0.00</span></p>
+        <p class="checkout-total">Total: R<span id="checkout-total">0.00</span></p>
       </div>
       <form id="checkout-form" class="checkout-form" data-frmcontainer="checkout-form" name="checkout-form">
         <div class="form-group">
@@ -229,7 +229,7 @@
         const orderItem = document.createElement("div");
         orderItem.classList.add("order-item");
         orderItem.innerHTML = `
-          <p>${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}</p>
+          <p>${item.name} (x${item.quantity}) - R${(item.price * item.quantity).toFixed(2)}</p>
         `;
         orderItems.appendChild(orderItem);
       });
